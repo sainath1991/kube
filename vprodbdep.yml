@@ -29,20 +29,20 @@ spec:
              secretKeyRef:
                name: app-secret
                key: db-pass
-    nodeSelector:
-	    zone: us-east-1a
-	  volumes:
-	    - name: vpro-db-data
-		  awsElasticBlockStore:
-		    volumeID: vol-0cc5be32dca803f37
-			fsType: ext4
-    initContainers:
-      - name: busybox
-        image: busybox:latest
-        args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
-        volumeMounts:
-          - mountPath: /var/lib/mysql
-            name: vpro-db-data
+      nodeSelector:
+        zone: us-east-1a
+      volumes:
+	- name: vpro-db-data
+	  awsElasticBlockStore:
+	  volumeID: vol-0cc5be32dca803f37
+	  fsType: ext4
+      initContainers:
+       - name: busybox
+         image: busybox:latest
+         args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+         volumeMounts:
+           - mountPath: /var/lib/mysql
+             name: vpro-db-data
 
 
 
